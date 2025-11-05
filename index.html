@@ -1,33 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Murder Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>The Murder Game 🕵️‍♂️</h1>
   <div id="game-container">
-    <div id="room">
-      <p id="room-description">You are in the Lounge. There are some objects to inspect.</p>
-      <div class="object" data-clue="A bloody knife" onclick="inspectObject(this)">🔪 Knife</div>
-      <div class="object" data-clue="A mysterious note" onclick="inspectObject(this)">📜 Note</div>
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="screen active">
+      <h1>The Murder Game</h1>
+      <p>An AI-created mystery set in a dark academy mansion. Investigate, survive, uncover the killer.</p>
+      <button id="start-btn">Start Game</button>
     </div>
-    <div id="inventory">
-      <h3>Clues Collected:</h3>
-      <ul id="clues-list"></ul>
+
+    <!-- Main Game Screen -->
+    <div id="room-screen" class="screen">
+      <div id="header">
+        <h2 id="room-title">Entrance Hall</h2>
+      </div>
+
+      <!-- 2D CSS Room Drawing -->
+      <div id="room-image">
+        <div class="wall"></div>
+        <div class="floor"></div>
+        <div class="table"></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div id="actions">
+        <button class="move-btn" data-room="library">Go to Library</button>
+        <button class="move-btn" data-room="kitchen">Go to Kitchen</button>
+        <button class="move-btn" data-room="study">Go to Study</button>
+      </div>
+
+      <div id="message"></div>
+      <button id="next-round" class="hidden">Next Round</button>
     </div>
-    <div id="dialogue">
-      <button onclick="interrogate('Alice')">Interrogate Alice</button>
-      <button onclick="interrogate('Bob')">Interrogate Bob</button>
+
+    <!-- Dialogue Box -->
+    <div id="dialogue-box">
+      <p id="dialogue-text"></p>
+      <button id="next-dialogue">Continue</button>
     </div>
-    <div id="accuse">
-      <h3>Accuse someone:</h3>
-      <button onclick="accuse('Alice')">Alice</button>
-      <button onclick="accuse('Bob')">Bob</button>
-    </div>
-    <div id="message"></div>
   </div>
+
+  <!-- Sounds -->
+  <audio id="bg-music" loop>
+    <source src="sounds/background.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="click-sound">
+    <source src="sounds/click.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="suspense-sound">
+    <source src="sounds/suspense.mp3" type="audio/mpeg" />
+  </audio>
 
   <script src="script.js"></script>
 </body>
