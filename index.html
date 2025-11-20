@@ -1,61 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Murder Game</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Disappearance of Room 26</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="game-container">
-    <!-- Intro Screen -->
-    <div id="intro-screen" class="screen active">
-      <h1>The Murder Game</h1>
-      <p>An AI-created mystery set in a dark academy mansion. Investigate, survive, uncover the killer.</p>
-      <button id="start-btn">Start Game</button>
-    </div>
+  <div id="app">
+    <header>
+      <h1>The Disappearance of Room 26</h1>
+      <div class="subtitle">Dark academy — solve the case with skill, not luck.</div>
+    </header>
 
-    <!-- Main Game Screen -->
-    <div id="room-screen" class="screen">
-      <div id="header">
-        <h2 id="room-title">Entrance Hall</h2>
-      </div>
+    <main class="game">
+      <section id="panel-left" class="panel">
+        <!-- start / chapter UI -->
+        <div id="startScreen" class="screen active">
+          <h2>Welcome Investigator</h2>
+          <p class="lead">Chill, listen, think. This academy hides rooms that shouldn't exist.</p>
+          <div class="controls">
+            <button id="btnStart" class="btn primary">Begin Case</button>
+            <button id="btnMute" class="btn alt">Mute</button>
+          </div>
+        </div>
 
-      <!-- 2D CSS Room Drawing -->
-      <div id="room-image">
-        <div class="wall"></div>
-        <div class="floor"></div>
-        <div class="table"></div>
-        <div class="lamp"></div>
-      </div>
+        <div id="playScreen" class="screen">
+          <div class="hud">
+            <div>Chapter: <span id="chapterNum">0</span></div>
+            <div>Time: <span id="timeLeft">—</span></div>
+            <div>Notebook: <span id="notesCount">0</span></div>
+          </div>
 
-      <div id="actions">
-        <button class="move-btn" data-room="library">Go to Library</button>
-        <button class="move-btn" data-room="kitchen">Go to Kitchen</button>
-        <button class="move-btn" data-room="study">Go to Study</button>
-      </div>
+          <div id="canvas" class="canvas" aria-live="polite"></div>
 
-      <div id="message"></div>
-      <button id="next-round" class="hidden">Next Round</button>
-    </div>
+          <div class="actions">
+            <div class="nav">
+              <button class="navBtn" data-room="corridor">Corridor</button>
+              <button class="navBtn" data-room="library">Library</button>
+              <button class="navBtn" data-room="westwing">West Wing</button>
+              <button class="navBtn" data-room="basement">Basement</button>
+              <button class="navBtn" data-room="study">Study</button>
+            </div>
 
-    <!-- Dialogue Box -->
-    <div id="dialogue-box">
-      <p id="dialogue-text"></p>
-      <button id="next-dialogue">Continue</button>
-    </div>
+            <div class="controls-row">
+              <button id="inspectBtn" class="btn">Inspect</button>
+              <button id="openNotebook" class="btn alt">Open Notebook</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside id="panel-right" class="panel">
+        <div class="card">
+          <h3>Inventory</h3>
+          <div id="inventory" class="inventory">No clues yet</div>
+        </div>
+
+        <div class="card">
+          <h3>Notebook</h3>
+          <div id="notebook" class="notebook">
+            <div id="notesList" class="notesList">(empty)</div>
+            <textarea id="noteInput" placeholder="Write deduction notes..."></textarea>
+            <button id="pinNote" class="btn small">Pin note</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Suspects</h3>
+          <div id="suspectBoard" class="suspectBoard"></div>
+          <button id="accuseBtn" class="btn danger">Accuse</button>
+        </div>
+
+        <div class="card small muted">
+          Palette: <span class="pill">#A3BAD9</span> <span class="pill">#345573</span> <span class="pill">#6085A6</span> <span class="pill">#0B1C26</span> <span class="pill">#254559</span>
+        </div>
+      </aside>
+    </main>
+
+    <!-- modal/puzzle container -->
+    <div id="modal" class="modal hidden"></div>
+
+    <footer class="credits">Built with HTML/CSS/JS — prototype engine</footer>
   </div>
-
-  <!-- Sounds -->
-  <audio id="bg-music" loop>
-    <source src="sounds/background.mp3" type="audio/mpeg" />
-  </audio>
-  <audio id="click-sound">
-    <source src="sounds/click.mp3" type="audio/mpeg" />
-  </audio>
-  <audio id="suspense-sound">
-    <source src="sounds/suspense.mp3" type="audio/mpeg" />
-  </audio>
 
   <script src="script.js"></script>
 </body>

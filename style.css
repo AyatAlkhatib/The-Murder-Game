@@ -1,127 +1,51 @@
-body {
-  margin: 0;
-  font-family: "Georgia", serif;
-  background-color: #0c0c0c;
-  color: #f4f4f4;
-  overflow: hidden;
+/* Palette: #A3BAD9 #345573 #6085A6 #0B1C26 #254559 */
+:root{
+  --pale:#A3BAD9; --deep:#0B1C26; --muted:#345573; --steel:#6085A6; --teal:#254559;
+  --card: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  --glass: rgba(163,186,217,0.06);
 }
+*{box-sizing:border-box}
+body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--deep); color:var(--pale); min-height:100vh; display:flex; justify-content:center;}
+#app{width:1100px;padding:20px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+h1{font-size:20px;margin:0}
+.subtitle{color:var(--steel);font-size:13px}
+.game{display:flex;gap:16px}
+.panel{background:var(--card); border-radius:12px;padding:12px}
+.panel-left{flex:1}
+.panel{flex:1}
+#panel-left{flex:1;min-width:620px}
+#panel-right{width:320px;display:flex;flex-direction:column;gap:12px}
+.screen{display:none}
+.screen.active{display:block}
+.lead{color:var(--steel)}
+.controls{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.btn{background:var(--pale);color:var(--deep);border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn.alt{background:transparent;color:var(--pale);border:1px solid rgba(163,186,217,0.14)}
+.btn.small{padding:6px 8px;font-size:13px}
+.btn.danger{background:#9b3a3a;color:#fff}
+.hud{display:flex;justify-content:space-between;color:var(--steel);padding:8px 6px;border-radius:8px;margin-bottom:8px}
+.canvas{background:linear-gradient(180deg,#071019 0%, #0b1c26 100%);height:520px;border-radius:10px;padding:18px;position:relative;overflow:hidden;border:1px solid rgba(163,186,217,0.04)}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.navBtn{background:transparent;border:1px solid rgba(163,186,217,0.06);padding:6px 8px;border-radius:8px;color:var(--pale);cursor:pointer}
+.navBtn:hover{background:rgba(163,186,217,0.03)}
+.inventory{min-height:80px;background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;display:flex;flex-wrap:wrap;gap:8px}
+.item{background:linear-gradient(180deg, rgba(163,186,217,0.03), rgba(0,0,0,0.03));padding:6px 8px;border-radius:6px;color:var(--pale);font-size:13px;border:1px solid rgba(163,186,217,0.04)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:10px;border-radius:8px}
+.notebook textarea{width:100%;height:80px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--pale);padding:8px;border-radius:6px;margin-top:8px}
+.suspectBoard{display:flex;flex-direction:column;gap:8px}
+.suspect{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+.suspect .name{font-weight:700;color:var(--pale)}
+.small{font-size:12px;color:var(--steel)}
+.pill{display:inline-block;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,0.02);margin-left:6px;color:var(--pale)}
+.modal{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:80}
+.modal .inner{background:linear-gradient(180deg,#071018,#0b141a);padding:18px;border-radius:10px;border:1px solid rgba(163,186,217,0.04);width:720px;max-width:94%}
+.hidden{display:none}
 
-#game-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.screen {
-  display: none;
-  text-align: center;
-  padding: 20px;
-  max-width: 600px;
-}
-
-.screen.active {
-  display: block;
-}
-
-#intro-screen {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #444;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-button {
-  background-color: #b30000;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  margin-top: 15px;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #ff0000;
-}
-
-button:active {
-  background-color: #660000;
-}
-
-/* 2D CSS room layout */
-#room-image {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background: linear-gradient(180deg, #1a1a1a 70%, #2b2b2b 30%);
-  border: 2px solid #222;
-  border-radius: 10px;
-  margin: 20px 0;
-  overflow: hidden;
-}
-
-.wall {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70%;
-  background: linear-gradient(90deg, #111, #222);
-}
-
-.floor {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(0deg, #333, #222);
-}
-
-.table {
-  position: absolute;
-  bottom: 15%;
-  left: 40%;
-  width: 80px;
-  height: 20px;
-  background: #552222;
-  border-radius: 3px;
-}
-
-.lamp {
-  position: absolute;
-  top: 10%;
-  left: 45%;
-  width: 15px;
-  height: 60px;
-  background: #666;
-  border-radius: 3px;
-  box-shadow: 0 0 10px 2px #ffff99;
-}
-
-#dialogue-box {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  padding: 20px;
-  display: none;
-}
-
-#dialogue-box p {
-  font-size: 18px;
-}
-
-#message {
-  font-style: italic;
-  margin-top: 10px;
-}
-
-.hidden {
-  display: none;
-}
+/* CSS-drawn decorative items (candles, bookshelf) */
+.candle{position:absolute;right:10%;top:8%;width:14px;height:48px;background:linear-gradient(180deg,#f8f3d9,#d9d6af);border-radius:4px;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+.shelf{position:absolute;left:8%;top:8%;width:84%;height:84%;display:flex;gap:8px;flex-wrap:wrap;padding:8px;border-radius:6px}
+.book{width:36px;height:64px;border-radius:4px;background:linear-gradient(180deg,#2c353f,#192126)}
+.hotspot{position:absolute;border:2px dashed rgba(163,186,217,0.06);padding:6px;border-radius:8px;cursor:pointer;transition:all .12s}
+.hotspot:hover{transform:translateY(-4px);border-color:rgba(163,186,217,0.18)}
